@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+USER_ADULT_AGE = 18
+
 @dataclass  # decprator
 class User:
     name: str
@@ -7,6 +9,8 @@ class User:
     status: str
     items: list[str]
 
+    def is_adult(self) -> bool:
+        return self.age >= USER_ADULT_AGE
 
 
 # # smae as above
@@ -40,8 +44,4 @@ if __name__ == "__main__":
     only the function and class definitions will be imported, 
     and the code under the if __name__ == "__main__" block will not execute.
     """
-    # d = {"name": "Mike", "age": 16, "status": "student", "items": ["pen", "book"]}
-    mike_1 = User(name="Mike", age=16, status="student", items=["pen", "book"])
-    mike_2 = User(name="Mike", age=16, status="student", items=["pen", "book"])
-    # assert mike.age == 20, f"{mike.name} is not 20"
-    assert mike_1 == mike_2, f"{mike_1.name} is not equal to {mike_2.name}"
+    pass

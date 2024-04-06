@@ -29,7 +29,8 @@ def workers() -> list[User]:
 def young_users():
     # list comprehension, take on object from list of objects of User class, name them worker and 
     # add to the lsit attribute "name" of all objects (called workers) that have attribute "age" below 18
-    young_workers = [user.name for user in workers() if user.age < USER_ADULT_AGE]  
+    # utilize the User class function ".is_adult()" as a condition
+    young_workers = [user.name for user in workers() if not user.is_adult()]  
     return young_workers
 
 
