@@ -1,17 +1,35 @@
 from dataclasses import dataclass
+from enum import Enum  # import class from library
+
 
 USER_ADULT_AGE = 18
+
+
+# define only 2 statuses, if csv file will have different status the test will fail
+class Status(Enum):  # class inheritance 
+    student = "student"
+    worker = "worker"
+
 
 @dataclass  # decprator
 class User:
     name: str
     age: int
-    status: str
+    status: Status
     items: list[str]
 
     def is_adult(self) -> bool:
         return self.age >= USER_ADULT_AGE
 
+# example of inheritance from another Class
+class Worker(User):
+    status = Status.worker
+
+    def __init__(self, name: str, age: int, items: list[str]):
+        self.name = name
+        self.age = age
+        self.items = items
+    
 
 # # smae as above
 # class User:

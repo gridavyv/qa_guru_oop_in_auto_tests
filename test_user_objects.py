@@ -3,7 +3,15 @@ import os.path
 import csv
 from models.users import User
 from models.users import USER_ADULT_AGE
+from models.users import Status
+# from providers import UserProvider
+# from providers import CsvUserProvider
 
+# def user_provider() -> UserProvider:
+#     return CsvUserProvider()  # class CsvUserProvider inherit class UserProvider
+
+# def users(user_provider: UserProvider) -> list[User]:
+#     return user_provider.ger_users()
 
 def users() -> list[User]:
     """
@@ -15,14 +23,13 @@ def users() -> list[User]:
         users = csv.DictReader(file, delimiter=",")
         # create users list of User objects, utilizing list comprehension
         # for each dictionary (user) in users, create a User object with the dictionary values
-        return [User(name=user["name"], age=int(user["age"]), status=user["status"], items=user["items"]) for user in users] # return list of User objects
-
+        return [User(name=user["name"], age=int(user["age"]), status=Status(user["status"]), items=user["items"]) for user in users] # return list of User objects
 
 def workers() -> list[User]:
     """
     gets list of objects "user", filter workers from users and return list of User objects
     """
-    workers = [user for user in users() if user.status == "worker"]  # list comprehension to return all users that are workers
+    workers = [user for user in users() if user.status == Status.worker]  # list comprehension to return all users that are workers
     return workers  # return list of User objects
     
 
@@ -38,7 +45,7 @@ def test_workers_are_adults_v3():
     """
     Check that all workers are adults
     """
-    assert not young_users(), f"Workers {young_users()} blow {USER_ADULT_AGE}"
+    assert not young_users(), f"Workers {young_users()} below {USER_ADULT_AGE}"
     # # same as above
     # assert len(young_users(workers)) == 0, f"Workers {young_users(workers)} blow 18"
 
